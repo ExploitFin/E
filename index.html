@@ -1,13 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/index.css">
-  <script src="js/index.js"></script>
-  <title>Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key System</title>
+    <style>
+        body {
+            background-color: #1e1e2f;
+            color: #fff;
+            font-family: 'Roboto', Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 90%;
+            padding: 30px;
+            background: linear-gradient(145deg, #2e2e40, #262636);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), inset 0 1px 5px rgba(255, 255, 255, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #ffcc00;
+            text-shadow: 0 2px 5px rgba(255, 204, 0, 0.5);
+        }
+
+        .key {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(145deg, #ffcc00, #f7b600);
+            padding: 15px 30px;
+            border-radius: 8px;
+            display: inline-block;
+            box-shadow: 0 4px 10px rgba(255, 204, 0, 0.4);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        #timer {
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+
+        footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+
+        footer a {
+            color: #4aacf7;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+    </style>
 </head>
 <body>
-	<h1>Website</h1>
+    <div class="container">
+        <h1>Current Key</h1>
+        <div class="key" id="key-display">A$QUA#9182991</div>
+        <p id="timer">Expires in: <span id="countdown">24:00:00</span></p>
+        <footer>
+            Made by <a href="#">ExploitFin</a>
+        </footer>
+    </div>
+
+    <script>
+        let expirationTime = 86400; // 86400 seconds = 24 hours expiration for the key
+        let timeLeft = expirationTime;
+        const timerDisplay = document.getElementById('countdown');
+        const keyDisplay = document.getElementById('key-display');
+        const container = document.querySelector('.container');
+
+        // Initial key (this can be updated dynamically)
+        let currentKey = "A$QUA#9182991";
+
+        // Function to update the key
+        function updateKey(newKey) {
+            currentKey = newKey;
+            keyDisplay.textContent = currentKey;
+        }
+
+        // Example: Function to fetch new key from your Roblox exploit system
+        function fetchNewKeyFromExploit() {
+            // Simulate a function that would get a new key from your exploit system
+            setTimeout(function() {
+                const newKey = "B#XY12$KLM989"; // Replace with key from Roblox exploit system
+                updateKey(newKey);
+            }, 10000); // Update after 10 seconds (simulated delay)
+        }
+
+        // Fetch new key when page loads
+        fetchNewKeyFromExploit();
+
+        function updateTimer() {
+            const hours = Math.floor(timeLeft / 3600).toString().padStart(2, '0'); // Get hours
+            const minutes = Math.floor((timeLeft % 3600) / 60).toString().padStart(2, '0'); // Get minutes
+            const seconds = (timeLeft % 60).toString().padStart(2, '0'); // Get seconds
+            timerDisplay.textContent = `${hours}:${minutes}:${seconds}`; // Show in HH:MM:SS format
+            if (timeLeft > 0) {
+                timeLeft--;
+                setTimeout(updateTimer, 1000); // Update the timer every second
+            }
+        }
+
+        updateTimer(); // Start the timer
+
+    </script>
 </body>
 </html>
